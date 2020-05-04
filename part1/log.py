@@ -15,11 +15,14 @@ class Log:
     def getChain(self):
         logfile = open('log.json', 'r')
         data = logfile.read()
-        print(data)
+        blockchain = []
         if not data == "":
             chain = json.loads(data)
-            return chain
-        return []
+            for block in chain:
+                blockchain.append(Block(block["index"], block["transaction"], block["timestamp"], block["previous_hash"], block["nonce"]))
+            return blockchain
+        return blockchain
+
     
     # overwrites chain with new chain
     def overwriteChain(self, chain):
