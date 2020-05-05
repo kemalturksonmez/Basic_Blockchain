@@ -34,6 +34,14 @@ class Blockchain:
     def getLastBlock(self):
         return self.chain[-1]
 
+    #get length of chain
+    def getChainLength(self):
+        return len(self.chain)
+
+    #get length of chain
+    def getChain(self):
+        return self.chain
+
     # proof of work, increases nonce till a hash of a certain difficulty is found
     def PoW(self, block):
         while not (block.computeHash().startswith('0' * self.difficulty)):
@@ -56,7 +64,7 @@ class Blockchain:
                 wallet = wallet - self.getCoins(transaction)
             elif "gave " + name in transaction:
                 wallet = wallet + self.getCoins(transaction)
-        return wallet
+        return int(wallet)
     
     # checks to see if a transaction was a double spending 
     # transaction - transaction in question
@@ -81,7 +89,7 @@ class Blockchain:
             for block in self.chain:
                 if transaction == block.transaction:
                     onChain = True
-                    if block.index < (chainlength - 3):
+                    if block.index < (chainlength - 5):
                         print("Transaction: " + transaction + " has been committed")
                         # commit transaction
                         self.spentTransactions.remove(transaction)
@@ -103,6 +111,8 @@ class Blockchain:
         # once a verified transaction has been selected
         # pick transactions from list
         for val in self.unspentTransactions:
+            rc = -2
+            chainWritten = False
             print("Attempting to mine transaction: " + val)
             name = val.split(" ")[0]
             amount = self.getCoins(val)
@@ -138,43 +148,67 @@ class Blockchain:
                 # remove transaction from unspent transactions to spent transactions
                 self.unspentTransactions.remove(transaction)
                 self.spentTransactions.append(transaction)
-            self.commitTransactions()
-            # overwrite transactions
-            self.overWriteTransactions()
-            return chainWritten
-        # else return error code
-        print("Currently no valid transactions sitting in pool")
-        #overwrite transactions
+                rc = 0
+        # if transaction not found
+        else:
+            print("Currently no valid transactions sitting in pool")
+            rc = -2
+        if transaction and not chainWritten:
+            print("Transaction " + transaction + " was not mined because longer block chain was found")
+            rc = -1
+        # attempt to commit transactions
+        self.commitTransactions()
+        # overwrite transactions
         self.overWriteTransactions()
-        return False
+        return rc
     
     #verifies block sent from another miner
     def verifyBlock(self, block, chain=None):
         if not chain:
             chain = self.chain
-        transaction = block["transaction"]
+        transaction = block.transaction
         sender,f,receipient,amount = transaction.split(" ")
-        amount = amount.remove("#","").remove("\n", "")
-        amont = int(amount)
+        amount = amount.replace("#","").replace("\n", "")
         # check to see if transaction is double spend
         canContinue = self.doubleSpend(transaction, chain)
         if canContinue:
             canContinue = False
             if sender != "ExtExchange":
-                wallet = utxo(sender, chain)
-                if wallet >= amount:
+                wallet = self.utxo(sender, chain)
+                if wallet >= int(amount):
                     canContinue = True
+                if not canContinue:
+                    print("Block invalid: sender did not have enough money")
+                    return False
+            else:
+                canContinue = True
+        else:
+            print("Block invalid: double spend transaction exists on chain")
+            return False
         if canContinue:
+            if len(chain) < block.index:
+                print("Block invalid: block is ahead of chain")
+                return False
             # verify hash of previous block
-            canContinue = chain[int(block["index"])-1].computeHash() == block["previous_hash"]
+            canContinue = chain[block.index-1].computeHash() == block.previous_hash
         if canContinue:
             # verify proof of work of current block
-            canContinue = block.computeHash.startswith('0' * self.difficulty)
+            canContinue = block.computeHash().startswith('0' * self.difficulty)
+            if not canContinue:
+                print("Block invalid: incorrect proof of work")
+                return False
+        else:
+                print("Block invalid: previous hash did not match previous block's hash")
+                return False
         return canContinue
 
 
     # verifies chain sent from another miner
     # chain sent by miner
     def verifyChain(self, chain):
+        canContinue = True
         for block in chain:
-            self.verifyBlock(block, chain)
+            if block.index > 0:
+                if not self.verifyBlock(block, chain):
+                    return False
+        return True

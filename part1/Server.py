@@ -39,7 +39,7 @@ class SERVER():
                 #conn.send(str('server request accepted').encode())
                 while True:
                         try:    #receive msg
-                                msg = conn.recv(1024).decode()
+                                msg = conn.recv(4096).decode()
                                 if msg:  
                                         self.get_msg(value=msg)                                      
                                 
