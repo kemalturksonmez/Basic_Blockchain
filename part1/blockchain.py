@@ -147,11 +147,6 @@ class Blockchain:
         #overwrite transactions
         self.overWriteTransactions()
         return False
-
-        # don't remove transaction from list until its a couple blocks behind
-        # maybe we can move to another temporary list so we know that it fully hasn't been accepted
-        # once transaction is a couple blocks behind, we can fully remove it
-
     
     #verifies block sent from another miner
     def verifyBlock(self, block, chain=None):
@@ -170,9 +165,11 @@ class Blockchain:
                 if wallet >= amount:
                     canContinue = True
         if canContinue:
-            # verify proof of work of current block
             # verify hash of previous block
             canContinue = chain[int(block["index"])-1].computeHash() == block["previous_hash"]
+        if canContinue:
+            # verify proof of work of current block
+            canContinue = block.computeHash.startswith('0' * self.difficulty)
         return canContinue
 
 
@@ -180,4 +177,4 @@ class Blockchain:
     # chain sent by miner
     def verifyChain(self, chain):
         for block in chain:
-            self.verifyBlock(block, chain, )
+            self.verifyBlock(block, chain)
