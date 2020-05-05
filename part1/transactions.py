@@ -5,8 +5,10 @@
 import os
 class Transactions:
     def __init__(self, minerNum):
-        if not os.path.isfile('UnspentTransactions.txt'):
-            transFile = open('UnspentTransactions.txt', 'w+')
+        self.spentFileLoc = str(minerNum) + '/SpentTransactions.txt'
+        self.unspentFileLoc = str(minerNum) + '/UnspentTransactions.txt'
+        if not os.path.isfile(self.unspentFileLoc):
+            transFile = open(self.unspentFileLoc, 'w+')
             ogFile = open('transactionsOriginal.txt', 'r')
             line = ogFile.readline()
             counter = 0
@@ -17,12 +19,12 @@ class Transactions:
                 line = ogFile.readline()
             ogFile.close()
             transFile.close()
-            transFile = open('SpentTransactions.txt', 'a+')
+            transFile = open(self.spentFileLoc, 'a+')
             transFile.close()
     
     # gets transactions from file
     def getUnspentTransactions(self):
-        transFile = open('UnspentTransactions.txt', 'r')
+        transFile = open(self.unspentFileLoc, 'r')
         transactions = []
         line = transFile.readline()
         while line != "":
@@ -34,7 +36,7 @@ class Transactions:
 
     # gets transactions from file
     def getSpentTransactions(self):
-        transFile = open('SpentTransactions.txt', 'r')
+        transFile = open(self.spentFileLoc, 'r')
         transactions = []
         line = transFile.readline()
         while line != "":
@@ -46,14 +48,14 @@ class Transactions:
 
     # writes remaining set of transactions
     def overwriteSpentTransactions(self, transactions):
-        transFile = open('SpentTransactions.txt', 'w')
+        transFile = open(self.spentFileLoc, 'w')
         for line in transactions:
             transFile.write(line + "\n")
         transFile.close()
 
     # write current unspent transations
     def overwriteUnspentTransactions(self, transactions):
-        transFile = open('UnspentTransactions.txt', 'w+')
+        transFile = open(self.unspentFileLoc, 'w+')
         for line in transactions:
             transFile.write(line + "\n")
         transFile.close()

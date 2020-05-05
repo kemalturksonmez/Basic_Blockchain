@@ -6,17 +6,18 @@ import os
 import json
 from block import Block
 class Log:
-    def __init__(self, lock):
+    def __init__(self, lock, minerNum):
         self.lock = lock
-        if not os.path.isfile('log.json'):
-            logfile = open('log.json', 'w+')
+        self.logFileLoc = str(minerNum) + '/log.json'
+        if not os.path.isfile(self.logFileLoc):
+            logfile = open(self.logFileLoc, 'w+')
             logfile.close()
     
     # returns chain from file
     def getChain(self):
         # acquire lock
         self.lock.acquire()
-        logfile = open('log.json', 'r')
+        logfile = open(self.logFileLoc, 'r')
         data = logfile.read()
         blockchain = []
         if not data == "":
@@ -32,7 +33,7 @@ class Log:
 
     #gets chain length
     def getLogChainLength(self):
-        logfile = open('log.json', 'r')
+        logfile = open(self.logFileLoc, 'r')
         data = logfile.read()
         chain = []
         if not data == "":
@@ -45,7 +46,7 @@ class Log:
         # acquire lock
         self.lock.acquire()
         if self.getLogChainLength() < len(chain):
-            logfile = open('log.json', 'w')
+            logfile = open(self.logFileLoc, 'w')
             logfile.write("[\n")
             for block in chain:
                 logfile.write(json.dumps(block.__dict__, sort_keys=True, indent=3))
