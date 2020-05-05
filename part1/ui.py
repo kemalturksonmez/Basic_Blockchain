@@ -6,16 +6,24 @@ from blockchain import Blockchain
 from log import Log
 from transactions import Transactions
 class UI:
-    def __init__(self, minerNum):
+    def __init__(self, minerNum, lock):
         # the node's copy of blockchain
-        self.log = Log()
+        self.log = Log(lock)
         self.transObj = Transactions(minerNum)
         self.blockchain = Blockchain(self.log, self.transObj)
         self.startUI()
 
     def startUI(self):
+        canContinue = True
         while True:
-            block = self.blockchain.mine()
+            canContinue = self.blockchain.mine()
+            if not canContinue:
+                inp = input("Would you like to quit?\n")
+                if inp.lower() == "quit":
+                    break
+                else:
+                    canContinue = True
+
 
 
     # def broadcastBlock(self, block):

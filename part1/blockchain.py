@@ -48,21 +48,21 @@ class Blockchain:
 
     # gets unspent transaction output for a given user
     # name - name of user
-    def utxo(self, name):
+    def utxo(self, name, chain):
         wallet = 0
-        for block in self.chain:
+        for block in chain:
             transaction = block.transaction
-            if name + " gives" in transaction:
+            if name + " gave" in transaction:
                 wallet = wallet - self.getCoins(transaction)
-            elif "gives " + name in transaction:
+            elif "gave " + name in transaction:
                 wallet = wallet + self.getCoins(transaction)
         return wallet
     
     # checks to see if a transaction was a double spending 
     # transaction - transaction in question
     # returns true if was 
-    def doubleSpend(self, transaction):
-        for block in self.chain:
+    def doubleSpend(self, transaction, chain):
+        for block in chain:
             if transaction in block.transaction:
                 return True
         return False
@@ -72,8 +72,29 @@ class Blockchain:
         self.transObj.overwriteUnspentTransactions(self.unspentTransactions)
         self.transObj.overwriteSpentTransactions(self.spentTransactions)
 
+    #Checks blockchain to ensure that it can commit transaction
+    def commitTransactions(self):
+        chainlength = len(self.chain)
+        for transaction in self.spentTransactions:
+            committed = False
+            onChain = False
+            for block in self.chain:
+                if transaction == block.transaction:
+                    onChain = True
+                    if block.index < (chainlength - 3):
+                        print("Transaction: " + transaction + " has been committed")
+                        # commit transaction
+                        self.spentTransactions.remove(transaction)
+                        committed = True
+            if not onChain and not committed:
+                # add back to transaction pool
+                self.unspentTransactions.append(transaction)
+                self.spentTransactions.remove(transaction)
+
     # begins mining process
     def mine(self):
+        #Ensure chain is most recent version
+        self.chain = self.log.getChain()
         transaction = None
         prevHash = self.getLastBlock().computeHash()
         block = Block(len(self.chain), "", time(), prevHash)
@@ -84,16 +105,16 @@ class Blockchain:
         for val in self.unspentTransactions:
             print("Attempting to mine transaction: " + val)
             name = val.split(" ")[0]
-            coins = self.getCoins(val)
+            amount = self.getCoins(val)
             if name == "ExtExchange":
-                if not self.doubleSpend(val):
+                if not self.doubleSpend(val, self.chain):
                     transaction = val
                     break
                 else:
                     print('Transaction "' + val + '" was a double spend')
                     self.unspentTransactions.remove(val)
-            elif self.utxo(name) >= coins:
-                if not self.doubleSpend(val):
+            elif self.utxo(name, self.chain) >= amount:
+                if not self.doubleSpend(val, self.chain):
                     transaction = val
                     break
                 else:
@@ -101,39 +122,62 @@ class Blockchain:
                     self.unspentTransactions.remove(val)
             else:
                 print('In transaction "' + val + '", ' + name + ' did not have enough money')
+                print(name + "'s wallet had: " + str(self.utxo(name, self.chain)) + " and " + name + " wanted to spend " + str(amount))
         # if a transaction has been set continue
         if transaction:
             # set block transaction
             block.transaction = transaction
-            # remove transaction from unspent transactions to spent transactions
-            self.unspentTransactions.remove(transaction)
-            self.spentTransactions.append(transaction)
             # perform proof of work
             self.PoW(block)
             # return updated block
             self.chain.append(block)
             print("Block: \n" +  json.dumps(block.__dict__, sort_keys=True, indent=3) + "\nmined!")
             # overwrite chain
-            self.log.overwriteChain(self.chain)
+            chainWritten = self.log.overwriteChain(self.chain)
+            if chainWritten:
+                # remove transaction from unspent transactions to spent transactions
+                self.unspentTransactions.remove(transaction)
+                self.spentTransactions.append(transaction)
+            self.commitTransactions()
             # overwrite transactions
             self.overWriteTransactions()
-            return block
+            return chainWritten
         # else return error code
         print("Currently no valid transactions sitting in pool")
         #overwrite transactions
         self.overWriteTransactions()
-        return -1
+        return False
 
         # don't remove transaction from list until its a couple blocks behind
         # maybe we can move to another temporary list so we know that it fully hasn't been accepted
         # once transaction is a couple blocks behind, we can fully remove it
 
     
-    # verifies block sent from another miner
-    def verifyBlock(self):
-        print(0)
-    
+    #verifies block sent from another miner
+    def verifyBlock(self, block, chain=None):
+        if not chain:
+            chain = self.chain
+        transaction = block["transaction"]
+        sender,f,receipient,amount = transaction.split(" ")
+        amount = amount.remove("#","").remove("\n", "")
+        amont = int(amount)
+        # check to see if transaction is double spend
+        canContinue = self.doubleSpend(transaction, chain)
+        if canContinue:
+            canContinue = False
+            if sender != "ExtExchange":
+                wallet = utxo(sender, chain)
+                if wallet >= amount:
+                    canContinue = True
+        if canContinue:
+            # verify proof of work of current block
+            # verify hash of previous block
+            canContinue = chain[int(block["index"])-1].computeHash() == block["previous_hash"]
+        return canContinue
+
+
     # verifies chain sent from another miner
     # chain sent by miner
     def verifyChain(self, chain):
-        print(0)
+        for block in chain:
+            self.verifyBlock(block, chain, )
