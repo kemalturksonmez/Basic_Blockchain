@@ -2,24 +2,13 @@ ExtExchange gave Alice #500
 ExtExchange gave Bob #300
 ExtExchange gave Jason #200
 ExtExchange gave Jen #600
-Alice gave Bob #300
-Jason gave Jen #200
-Jen gave Alice #100
-Bob gave Jason #100
-Jason gave Alice #10
 Jen gave Bob #3
 Bob gave Alice #30
 Alice gave Jason #40
-Bob gave Jen #40
+Jason gave Jen #40
 Bob gave Jason #20
 Jason gave Bob #10
 Alice gave Jen #5
 Bob gave Alice #3
-Alice gave John #52
-Alice gave Jason #5
-Jen gave Bob #17
-Bob gave Jason #32
-Jason gave Alice #49
-Alice gave Jason #62
-Bob gave Jason #3
-Jen gave Bob #42
+Jen gave Bob #3
+
