@@ -25,13 +25,15 @@ class Blockchain:
 
     # creates genesis block
     def startGenesis(self):
-        genesis = Block(0, "", time(), "0", self.minerNum, [self.minerNum])
+        genesis = Block(0, "", time(), "0", self.minerNum, 0)
         print("Genesis block created")
-        print(json.dumps(genesis.__dict__, sort_keys=True))
+        #print(json.dumps(genesis.__dict__, sort_keys=True))
         return genesis
         
     #append valid block to chain after all verification
     def appendBlockChain(self, block):
+        print('Appending Verified Block to Chain....')
+        print("Block: \n" +  json.dumps(block.__dict__, sort_keys=True, indent=3) + "\nappended!")
         self.chain.append(block)
         self.log.overwriteChain(self.chain)
 
@@ -46,12 +48,6 @@ class Blockchain:
     #get length of chain
     def getChain(self):
         return self.chain
-
-#    # proof of work, increases nonce till a hash of a certain difficulty is found
-#    def PoS(self, block):
-#        while not (block.computeHash().startswith('0' * self.difficulty)):
-#            block.nonce += 1
-#        print("Proof of work found!")
 
     # gets coin from a transaction
     def getCoins(self, transaction):
@@ -146,34 +142,20 @@ class Blockchain:
         if transaction:
             # set block transaction
             block.transaction = transaction
-            # perform proof of work
-            #self.PoW(block)
-            # return updated block
-            #self.chain.append(block)
-            print("Block: \n" +  json.dumps(block.__dict__, sort_keys=True, indent=3) + "\nforged!")
+            #print("Block: \n" +  json.dumps(block.__dict__, sort_keys=True, indent=3) + "\nforged!")
+            print('Block index :: {0}  Forged!!!'.format(block.index))
             return block
-            # overwrite chain
-            #chainWritten = self.log.overwriteChain(self.chain)
-#            if chainWritten:
-#                # remove transaction from unspent transactions to spent transactions
-#                self.unspentTransactions.remove(transaction)
-#                self.spentTransactions.append(transaction)
-#                rc = 0
+           
         # if transaction not found
         else:
             print("Currently no valid transactions sitting in pool")
             rc = -2
-#        if transaction and not chainWritten:
-#            print("Transaction " + transaction + " was not mined because longer block chain was found")
-#            rc = -1
-        # attempt to commit transactions
-#        self.commitTransactions()
         # overwrite transactions
         self.overWriteTransactions()
         return rc
     
     #verifies block sent from another miner
-    def verifyBlock(self, block, chain=None):
+    def verifyBlock(self, block, check=0, chain=None):
         if block.index == 0: return True
         if not chain:
             chain = self.chain
@@ -193,6 +175,7 @@ class Blockchain:
                     return False
             else:
                 canContinue = True
+            if check == 2: print('# No Double Spend Transaction Exists on Chain')    
         else:
             print("Block invalid: double spend transaction exists on chain")
             return False
@@ -203,14 +186,22 @@ class Blockchain:
             # verify hash of previous block
             canContinue = chain[block.index-1].computeHash() == block.previous_hash
         if not canContinue:
-#            # verify proof of work of current block
-#            canContinue = block.computeHash().startswith('0' * self.difficulty)
-#            if not canContinue:
-#                print("Block invalid: incorrect proof of work")
-#                return False
-        
             print("Block invalid: previous hash did not match previous block's hash")
             return False
+        if check == 2:
+            if not self.checkSigner(block):
+                print('Block Signed With Sufficient Proof of Stake')
+            else:
+                print('Block invalid: Not signed with enough proof of stake')
+                return False
+            
+            canContinue, client_prob = self.checkClientProb(block)
+            if canContinue:
+                print('Block Satisfy the Client Probability P = ', client_prob)
+            else:
+                print('Block invalid: Failed to satisfy the client probability. Current P = ', client_prob)
+                return False
+        
         return canContinue
     
     # check if we need signer to verify transection
@@ -234,6 +225,20 @@ class Blockchain:
             return True, block
         else:
             return False, block
+        
+    def checkClientProb(self, block):
+        verifier = block.validator
+        blockForged = 0
+        for item in self.chain:
+            if item.validator == verifier:
+                blockForged += 1
+        prob = round(blockForged/len(self.chain), 2)
+        if prob <= 0.5:
+            return True, prob
+        elif prob > 0.5 and len(self.chain) <9:
+            return True, prob
+        else:
+            return False, prob
             
         
         

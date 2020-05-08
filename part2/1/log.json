@@ -3,330 +3,306 @@
    "index": 0,
    "previous_hash": "0",
    "reward": {
-      "2": "$5"
+      "4": "$5"
    },
    "signer": {
-      "2": 161
+      "4": 151
    },
-   "timestamp": 1588841208.6967602,
+   "timestamp": 1588893717.2421517,
    "transaction": "",
-   "validator": 2
+   "validator": 4
 },
 {
    "index": 1,
-   "previous_hash": "24e44a31f6e2e108f8912a3c144e8b029819516dee4ed51ebd9367cfee7067b7",
+   "previous_hash": "63145e56606c85ff0257256a3eb1157b0c296cf6503a51ad64cbdf4b276d7649",
    "reward": {
       "1": "$3",
-      "3": "$5",
+      "2": "$5",
+      "3": "$3",
       "4": "$3"
    },
    "signer": {
-      "1": 157,
-      "3": 193,
-      "4": 176
+      "1": 164,
+      "2": 181,
+      "3": 176,
+      "4": 151
    },
-   "timestamp": 1588841211.8980615,
+   "timestamp": 1588893722.789333,
    "transaction": "ExtExchange gave Alice #500",
-   "validator": 3
+   "validator": 2
 },
 {
    "index": 2,
-   "previous_hash": "46cdd517ad86e8297056cf3b776f9262b1cdcb6733bc3e54f01c576e850272e2",
+   "previous_hash": "c4ff1199c40ecd08a735b2a90f5633f120e20e513df7ffbd53e65e7731ffe1ba",
    "reward": {
-      "1": "$5",
-      "3": "$3"
-   },
-   "signer": {
-      "1": 157,
-      "3": 193
-   },
-   "timestamp": 1588841226.045058,
-   "transaction": "ExtExchange gave Jason #200",
-   "validator": 1
-},
-{
-   "index": 3,
-   "previous_hash": "5058b04bac3a63e98a6dcbf48eaabe7bc13e08b3f30ef5c7fe4671e38c8586d2",
-   "reward": {
-      "1": "$3",
+      "2": "$3",
       "3": "$5"
    },
    "signer": {
-      "1": 157,
-      "3": 193
+      "2": 181,
+      "3": 176
    },
-   "timestamp": 1588841231.9483628,
-   "transaction": "Alice gave Bob #300",
+   "timestamp": 1588893743.1462786,
+   "transaction": "ExtExchange gave Jason #200",
    "validator": 3
 },
 {
-   "index": 4,
-   "previous_hash": "7c4b53a4bff838bf08e3e3c9ee427b7a624172f3058e3b2649061839fd01021d",
+   "index": 3,
+   "previous_hash": "e354cae2eb81b213d2cf5e818f4f23c6e96de097d956525fb8c4e09bfdc4d03c",
    "reward": {
       "1": "$5",
-      "3": "$3"
+      "4": "$3"
    },
    "signer": {
-      "1": 157,
-      "3": 193
+      "1": 164,
+      "4": 151
    },
-   "timestamp": 1588841246.1178944,
+   "timestamp": 1588893749.2325234,
+   "transaction": "Alice gave Bob #300",
+   "validator": 1
+},
+{
+   "index": 4,
+   "previous_hash": "33d90e73169937bb266f3f8a5dac65a4726b9c5fa2f96360a1b6d76334cd5a4a",
+   "reward": {
+      "1": "$5",
+      "4": "$3"
+   },
+   "signer": {
+      "1": 164,
+      "4": 151
+   },
+   "timestamp": 1588893769.271248,
    "transaction": "ExtExchange gave Bob #300",
    "validator": 1
 },
 {
    "index": 5,
-   "previous_hash": "6728aa0212b7de16b71e7c71af8d096c1c727bca4b4203cf5d052637f0ce27fe",
+   "previous_hash": "1b067501702001ae9fd43c13648eef52bfa1457b271a749474c0d96aa4ca6855",
    "reward": {
-      "2": "$3",
-      "3": "$5"
+      "2": "$5",
+      "3": "$3"
    },
    "signer": {
-      "2": 161,
-      "3": 193
+      "2": 181,
+      "3": 176
    },
-   "timestamp": 1588841252.62631,
+   "timestamp": 1588893775.8905754,
    "transaction": "Jason gave Jen #200",
-   "validator": 3
+   "validator": 2
 },
 {
    "index": 6,
-   "previous_hash": "005e7a8214eb2a0c0a13d29819d77d8d64ef681d3b0a6ccc7e6a13e95984718f",
+   "previous_hash": "69315623d2008d69d1322e5886e6f3388aab05e2ad281bd338e68095701a5abc",
    "reward": {
       "4": "$5"
    },
    "signer": {
-      "4": 176
+      "4": 151
    },
-   "timestamp": 1588841267.1541057,
+   "timestamp": 1588893791.4462943,
    "transaction": "Jen gave Alice #100",
    "validator": 4
 },
 {
    "index": 7,
-   "previous_hash": "5311fdc9cc917a0ed596e22a26783f4c8f7d3f517a4c6770018720915fdf0926",
-   "reward": {
-      "1": "$3",
-      "2": "$3",
-      "3": "$5",
-      "4": "$3"
-   },
-   "signer": {
-      "1": 157,
-      "2": 161,
-      "3": 193,
-      "4": 176
-   },
-   "timestamp": 1588841272.8159244,
-   "transaction": "ExtExchange gave Jen #600",
-   "validator": 3
-},
-{
-   "index": 8,
-   "previous_hash": "9a42416f2445795060c576c0fa0c5ff7dd6705a3ab03be6654a835009e4c5c22",
+   "previous_hash": "c9eb774ade4ade3f75c0275c3075483decbe3ab8c39742e5648d812cae972992",
    "reward": {
       "1": "$5"
    },
    "signer": {
-      "1": 157
+      "1": 164
    },
-   "timestamp": 1588841286.4080272,
+   "timestamp": 1588893795.477248,
    "transaction": "Jen gave Bob #3",
    "validator": 1
 },
 {
-   "index": 9,
-   "previous_hash": "45850acd52f76124b6226cb5f43b0f6a0ea164604a83dc2625273017b6661477",
+   "index": 8,
+   "previous_hash": "7499e279163b21b70e88f7edf043d0c421963181b2b493221eebdd592d951843",
    "reward": {
-      "4": "$5"
+      "1": "$5",
+      "2": "$3",
+      "3": "$3",
+      "4": "$3"
    },
    "signer": {
-      "4": 176
+      "1": 164,
+      "2": 181,
+      "3": 176,
+      "4": 151
    },
-   "timestamp": 1588841307.5365398,
+   "timestamp": 1588893820.8049734,
+   "transaction": "ExtExchange gave Jen #600",
+   "validator": 1
+},
+{
+   "index": 9,
+   "previous_hash": "98a182d49dcc9acd3a24efb9fa25dd8727287604914011f9cf1ddaf9de7da80a",
+   "reward": {
+      "3": "$5"
+   },
+   "signer": {
+      "3": 176
+   },
+   "timestamp": 1588893825.6605692,
    "transaction": "Alice gave Jason #40",
-   "validator": 4
+   "validator": 3
 },
 {
    "index": 10,
-   "previous_hash": "bdb021458ea76df2571746ed3418a91d69578b288cb128e69f77e670ae83961b",
-   "reward": {
-      "3": "$5"
-   },
-   "signer": {
-      "3": 193
-   },
-   "timestamp": 1588841312.9976087,
-   "transaction": "Jason gave Alice #10",
-   "validator": 3
-},
-{
-   "index": 11,
-   "previous_hash": "d450351b5618297be861d2b7a1c332ef9a1360d93f88d25ffb5ad564d89912d3",
-   "reward": {
-      "1": "$5"
-   },
-   "signer": {
-      "1": 157
-   },
-   "timestamp": 1588841326.9174168,
-   "transaction": "Bob gave Jason #100",
-   "validator": 1
-},
-{
-   "index": 12,
-   "previous_hash": "8193a7e787f01b610e0b44ae9d5584a2b7f0cfcc3acb7a610f79399481e2c871",
-   "reward": {
-      "3": "$5"
-   },
-   "signer": {
-      "3": 193
-   },
-   "timestamp": 1588841333.3195734,
-   "transaction": "Bob gave Jason #20",
-   "validator": 3
-},
-{
-   "index": 13,
-   "previous_hash": "a3bd77b0b83fa348f1047a4de9207775f1424d282f7fd7ef83a6e9175327e9b8",
-   "reward": {
-      "1": "$5"
-   },
-   "signer": {
-      "1": 157
-   },
-   "timestamp": 1588841347.1043978,
-   "transaction": "Alice gave Jen #5",
-   "validator": 1
-},
-{
-   "index": 14,
-   "previous_hash": "381995df45ac1fbb56aad020f3056e71d987a2086ecf7f6d6a6808967db5039a",
-   "reward": {
-      "3": "$5"
-   },
-   "signer": {
-      "3": 193
-   },
-   "timestamp": 1588841353.4779408,
-   "transaction": "Bob gave Jen #40",
-   "validator": 3
-},
-{
-   "index": 15,
-   "previous_hash": "d7dd43d5645bccb0f3f210661b7841132e76250e0c0948e4448c6ccd75ce376b",
-   "reward": {
-      "1": "$5"
-   },
-   "signer": {
-      "1": 157
-   },
-   "timestamp": 1588841367.4271936,
-   "transaction": "Alice gave John #52",
-   "validator": 1
-},
-{
-   "index": 16,
-   "previous_hash": "efb5c09cecb8a17900aa2e71b0079283e83e2775985060555c34fc3e9dd4832d",
-   "reward": {
-      "4": "$5"
-   },
-   "signer": {
-      "4": 176
-   },
-   "timestamp": 1588841388.1344254,
-   "transaction": "Jen gave Bob #17",
-   "validator": 4
-},
-{
-   "index": 17,
-   "previous_hash": "de5791e994bd686f86ca518dc61ab78dcdc97d6353ce70332d7bc87e20216f37",
-   "reward": {
-      "1": "$5"
-   },
-   "signer": {
-      "1": 157
-   },
-   "timestamp": 1588841407.823638,
-   "transaction": "Bob gave Alice #30",
-   "validator": 1
-},
-{
-   "index": 18,
-   "previous_hash": "29e5631d40d4947fa9b7ee8e3472055ed32b1f114544c4083322fb0d48e63031",
-   "reward": {
-      "3": "$5"
-   },
-   "signer": {
-      "3": 193
-   },
-   "timestamp": 1588841414.120104,
-   "transaction": "Jason gave Alice #49",
-   "validator": 3
-},
-{
-   "index": 19,
-   "previous_hash": "21794c67ca4bbb447120893351930db99afb24f552d551aa5dae4c6f1b086097",
-   "reward": {
-      "4": "$5"
-   },
-   "signer": {
-      "4": 176
-   },
-   "timestamp": 1588841428.6191173,
-   "transaction": "Jason gave Bob #10",
-   "validator": 4
-},
-{
-   "index": 20,
-   "previous_hash": "1c9cfe0224bfb21359bf978383eed3e7ca338b067390276eb64115253e9321a0",
-   "reward": {
-      "3": "$5"
-   },
-   "signer": {
-      "3": 193
-   },
-   "timestamp": 1588841434.6758966,
-   "transaction": "Bob gave Jason #32",
-   "validator": 3
-},
-{
-   "index": 21,
-   "previous_hash": "8cb2d3e971decfa77c2391abc72c857ef8a7cf02554ad5131de75a560fe9f1f9",
+   "previous_hash": "d367a8141026e1a96aca8e26b384f21f71524b8ba483288faf980c9665ba1369",
    "reward": {
       "2": "$5"
    },
    "signer": {
-      "2": 161
+      "2": 181
    },
-   "timestamp": 1588841449.793877,
-   "transaction": "Alice gave Jason #5",
+   "timestamp": 1588893833.132464,
+   "transaction": "Jason gave Alice #10",
    "validator": 2
 },
 {
-   "index": 22,
-   "previous_hash": "1876c0c308a85026136d29ac7e3f8628998bb2710cab8bd305669a133bcf76f5",
+   "index": 11,
+   "previous_hash": "3e24e416cb0ddabb0db4aba3c5ec4646bb859d80ebec5d748496bb43b82d242a",
    "reward": {
       "3": "$5"
    },
    "signer": {
-      "3": 193
+      "3": 176
    },
-   "timestamp": 1588841455.1596491,
-   "transaction": "Alice gave Jason #62",
+   "timestamp": 1588893849.2492664,
+   "transaction": "Bob gave Jason #100",
    "validator": 3
 },
 {
-   "index": 23,
-   "previous_hash": "c04299fda41c0682cb29331587c5b24e9f4a3f500cd14c7505ff3e3536163377",
+   "index": 12,
+   "previous_hash": "2dbccd8a9980b428bd1e0436f1d3cc1f312b5d87e5d43c4d4a7adbad1f5ccb9b",
+   "reward": {
+      "2": "$5"
+   },
+   "signer": {
+      "2": 181
+   },
+   "timestamp": 1588893863.0067756,
+   "transaction": "Bob gave Jason #20",
+   "validator": 2
+},
+{
+   "index": 13,
+   "previous_hash": "2c0c50215b8c7859e9a83b95de9a33d663fac149eef133e194bda2daf7744c55",
+   "reward": {
+      "4": "$5"
+   },
+   "signer": {
+      "4": 151
+   },
+   "timestamp": 1588893870.4647386,
+   "transaction": "Bob gave Alice #30",
+   "validator": 4
+},
+{
+   "index": 14,
+   "previous_hash": "a674440e3ed349a002ce372b8d4cc863d84eb9c666f312a4adab9f5bf59b63b8",
    "reward": {
       "1": "$5"
    },
    "signer": {
-      "1": 157
+      "1": 164
    },
-   "timestamp": 1588841468.4447837,
-   "transaction": "Jen gave Bob #42",
+   "timestamp": 1588893874.1315148,
+   "transaction": "Alice gave Jen #5",
    "validator": 1
+},
+{
+   "index": 15,
+   "previous_hash": "48e05f2f558210ce46cceb4545d048651fb919b91dbcec1ea28d95f7029a3904",
+   "reward": {
+      "2": "$5"
+   },
+   "signer": {
+      "2": 181
+   },
+   "timestamp": 1588893885.6974976,
+   "transaction": "Bob gave Jen #40",
+   "validator": 2
+},
+{
+   "index": 16,
+   "previous_hash": "4f41b3dcb0ff07a5bdc528d775a479be36e39ecc51759f2dcd10493a245ef607",
+   "reward": {
+      "4": "$5"
+   },
+   "signer": {
+      "4": 151
+   },
+   "timestamp": 1588893897.1045043,
+   "transaction": "Jason gave Bob #10",
+   "validator": 4
+},
+{
+   "index": 17,
+   "previous_hash": "99069dbfd52ef58951cbe5d7c9ca872a3c1b83d946f21ec50c2c764f948ab0f8",
+   "reward": {
+      "3": "$5"
+   },
+   "signer": {
+      "3": 176
+   },
+   "timestamp": 1588893903.627397,
+   "transaction": "Alice gave Jason #5",
+   "validator": 3
+},
+{
+   "index": 18,
+   "previous_hash": "7521002842c3c8efacf40f5a1402c0c4d5bcec562e708aff40bd1dc870580e49",
+   "reward": {
+      "2": "$5"
+   },
+   "signer": {
+      "2": 181
+   },
+   "timestamp": 1588893915.736175,
+   "transaction": "Alice gave John #52",
+   "validator": 2
+},
+{
+   "index": 19,
+   "previous_hash": "753a5118095a2c8847cef6c24435acbda91326e3a67bacfa5140ca75e8877c2b",
+   "reward": {
+      "4": "$5"
+   },
+   "signer": {
+      "4": 151
+   },
+   "timestamp": 1588893922.687131,
+   "transaction": "Jen gave Bob #17",
+   "validator": 4
+},
+{
+   "index": 20,
+   "previous_hash": "cfaa342bec9d1b76d63b19be1026f47cf234279f1a6605c369323f92de236554",
+   "reward": {
+      "3": "$5"
+   },
+   "signer": {
+      "3": 176
+   },
+   "timestamp": 1588893930.2469385,
+   "transaction": "Jason gave Alice #49",
+   "validator": 3
+},
+{
+   "index": 21,
+   "previous_hash": "f91ca15ca913768a7a8dabae347b7e8f2e9b48aa29a9bbf6b420b753eeaab5e3",
+   "reward": {
+      "2": "$5"
+   },
+   "signer": {
+      "2": 181
+   },
+   "timestamp": 1588893945.0429606,
+   "transaction": "Bob gave Jason #32",
+   "validator": 2
 }
 ]

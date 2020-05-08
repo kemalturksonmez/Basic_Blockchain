@@ -33,7 +33,7 @@ class UI:
 
     def startUI(self):
         while True:
-            sleep(20)
+            sleep(random.randint(20, 30))
             if random.random() <= self.calcProbability() and self.winner ==0:
                 
                 self.blockForged = self.blockchain.mine()
@@ -41,9 +41,10 @@ class UI:
                     break
                 self.blockForged.signer = {self.minerNum : self.stakeMoney}
                 #request votes from miners
+                print('Requesting Vote!!!!')
                 self.sendMessage(101, 'all')
-            else:
-                print('$$$ Whats Happening $$$')
+#            else:
+#                print('$$$ Whats Happening $$$')
     
     def setSigningPool(self):
         self.signingPool = [i for i in self.allNodes]
@@ -55,14 +56,7 @@ class UI:
             return 0.5
         self.clientProb = 1 - (self.NumForgedBlock  / self.blockLen  )
         return self.clientProb
-        
-
-
-    def broadcastLastBlock(self):
-        # block = [self.blockchain.getLastBlock().__dict__]
-        block = [json.dumps(self.blockchain.getLastBlock().__dict__, sort_keys=True)]
-        self.sendMessage(100, 'all', msg=block)
-            
+                  
     
     def sendMessage(self, msg_type, node, msg=None):
         #sleep(random.randint(1,4))
@@ -126,10 +120,10 @@ class UI:
         self.setSigningPool()
         
         #add reward money to block
-        self.blockForged = self.blockchain.addRewardMoney(self.blockForged)
+        self.blockForged = self.blockchain.addRewardMoney(self.blockForged)                
+        print('## Winner ## Block ::: {2} ##Current Length ::: {0} ## NumBlocks ::: {1}'.format(self.blockLen +1, self.NumForgedBlock, self.blockForged.index))
         self.blockchain.appendBlockChain(self.blockForged)
-        self.blockLen = self.blockchain.getChainLength()                
-        print('## Winner ## Block ::: {2} ##Current Length ::: {0} ## NumBlocks ::: {1}'.format(self.blockLen, self.NumForgedBlock, self.blockForged.index))
+        self.blockLen = self.blockchain.getChainLength()
         self.sendMessage(106, 'all', msg = self.blockForged.__dict__)
         
 
@@ -138,6 +132,7 @@ class UI:
         sent_node = msg.get('node')
         if msg_type == 101:         #vote request from sent_node
             self.sendMessage(102, sent_node)
+            print('Sending Vote to node ', sent_node)
             
         if msg_type == 102:
             # received vote reply from sent_node
@@ -145,17 +140,13 @@ class UI:
             if len(self.votedFor) > (len(self.allNodes)/2) and self.winner == 0:
                 self.winner = self.minerNum
                 self.sendMessage(103, 'all')
-                sleep(2.5)
+                sleep(2)
                 if self.blockchain.checkSigner(self.blockForged):
                     signer_node = self.signingPool[0]
                     self.signingPool.remove(signer_node)
                     self.sendMessage(104, signer_node, msg=self.blockForged.__dict__)
                 else:
-                    self.sendVerifiedBlock()
-                    
-                
-                
-
+                    self.sendVerifiedBlock()   
                     
         if msg_type == 103:
             # notification received from winner node
@@ -177,7 +168,6 @@ class UI:
             #received signed block from sent_node
             self.blockForged.signer[sent_node] = int(msg.get('msg'))  
             if self.blockchain.checkSigner(self.blockForged):
-                print('#$#$# Alert ::: {0} from ::: {1}'.format(msg.get('msg'), sent_node))
                 signer_node = self.signingPool[0]
                 self.signingPool.remove(signer_node)
                 self.sendMessage(104, signer_node, msg=self.blockForged.__dict__)
@@ -190,12 +180,12 @@ class UI:
             dict_block = msg.get('msg')
             block = self.convertToBlockChain([dict_block])[0]            
             print('Veryfining Block Index ::: {0} from node ::: {1}'.format( block.index, sent_node))
-            if self.blockchain.verifyBlock(block):
+            if self.blockchain.verifyBlock(block, 2, None):
                 self.blockchain.appendBlockChain(block)
                 self.winner = 0
                 self.votedFor = []
                 self.blockLen = self.blockchain.getChainLength()
-                print('Block Verified ## Current Chain Length ::: ', self.blockLen)
+                print('Block Verified and Added ## Current Chain Length ::: ', self.blockLen)
             
             
             
